@@ -1,0 +1,22 @@
+def right_view(root):
+    if not root:
+        return []
+
+    rightmost_nodes = []
+    queue = [(root, 0)]
+
+    while queue:
+        node, level = queue.pop(0)
+
+        if level == len(rightmost_nodes):
+            rightmost_nodes.append(node.val)
+        else:
+            rightmost_nodes[level] = node.val
+
+        if node.left:
+            queue.append((node.left, level + 1))
+        if node.right:
+            queue.append((node.right, level + 1))
+
+    return rightmost_nodes
+

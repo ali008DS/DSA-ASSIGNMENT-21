@@ -1,0 +1,45 @@
+class TreeNode:
+    def __init__(self, val):
+        self.val = val
+        self.left = None
+        self.right = None
+
+def left_view(root):
+    if not root:
+        return []
+
+    leftmost_nodes = []
+    queue = [(root, 0)]
+
+    while queue:
+        node, level = queue.pop(0)
+
+        if level == len(leftmost_nodes):
+            leftmost_nodes.append(node.val)
+
+        if node.left:
+            queue.append((node.left, level + 1))
+        if node.right:
+            queue.append((node.right, level + 1))
+
+    return leftmost_nodes
+
+# Examples:
+# Constructing the binary tree for the first example
+root1 = TreeNode(4)
+root1.left = TreeNode(5)
+root1.right = TreeNode(2)
+root1.right.left = TreeNode(3)
+root1.right.right = TreeNode(1)
+root1.right.left.left = TreeNode(6)
+root1.right.left.right = TreeNode(7)
+print(left_view(root1))  # Output: [4, 5, 3, 6]
+
+# Constructing the binary tree for the second example
+root2 = TreeNode(1)
+root2.left = TreeNode(2)
+root2.right = TreeNode(3)
+root2.left.right = TreeNode(4)
+root2.left.right.right = TreeNode(5)
+root2.left.right.right.right = TreeNode(6)
+print(left_view(root2))  # Output: [1, 2, 4, 5, 6]
